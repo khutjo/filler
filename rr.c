@@ -6,7 +6,7 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 16:20:36 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/06/28 18:02:15 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/06/30 18:25:15 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		setup(p_data **hold, int i, int j, int state)
 void	my_pos(p_data **hold)
 {
 	char	*c;
-	int		exit;
+	int		exit[2];
 	int		i;
 	int		j;
 	int		set;
@@ -63,23 +63,49 @@ void	my_pos(p_data **hold)
 	j = 0;
 	set = 0;
 	c = "OX";
-	exit = 0;
+	exit[0] = 0;
+	exit[1] = 0;
 	if ((*hold)->p_set == 1)
 		set = 1;
-	while ((*hold)->map3D[i++] && exit < 2)
+	while ((*hold)->map3D[i++] && (!exit[0] || !exit[1]))
 	{
 		j = 0;
-		while ((*hold)->map3D[i][j++] && exit < 2)
+		while ((*hold)->map3D[i][j++] && (!exit[0] || !exit[1]))
 		{
-			if ((*hold)->map3D[i][j] == c[-1 +(*hold)->p_set])
-				exit += setup(hold, i, j, 1);
-			if ((*hold)->map3D[i][j] == c[set])
-				exit += setup(hold, i, j, 2);
+			if ((*hold)->map3D[i][j] == c[-1 +(*hold)->p_set] && !exit[0])
+				exit[0] = setup(hold, i, j, 1);
+			if ((*hold)->map3D[i][j] == c[set] && !exit[1])
+				exit[1] = setup(hold, i, j, 2);
 		}
 	}
 	start(hold);
 }
+/*
+void	(p_data **hold, int start, int adder)
+{
+	int i;
+	int	j;
 
+	i = -1;
+	j = 0;
+	while ((*hold)->token3D[++i] && && (*hold)->token3D[i][-1 + j] == '*')
+	{
+		j = 0;
+		while ((*hold)->token3D[i][j] && (*hold)->token3D[i][j] != '*')
+			j++;
+	}
+	while ((*hold)->token3D[i])
+	{
+		while ((*hold)->token3D[i][j] && (*hold)->token3D[i][j] != '*')
+			j++;
+	}
+	while ((*hold)->token3D[i])
+	{
+		while ((*hold)->token3D[i][j] && (*hold)->token3D[i][j] != '*')
+			j++;
+	}
+}	
+*/
 void	map(p_data **hold)
 {
 	char	*line;
@@ -94,6 +120,12 @@ void	map(p_data **hold)
 	(*hold)->x_my = read(0, line,  (*hold)->y_my);
 	(*hold)->map3D = ft_strsplit(line, '\n');
 	free(line);
+	while ((*hold)->map3D[i])
+	{
+		temp = ft_strdup(ft_strchr((*hold)->map3D[i], '.'));
+		free((*hold)->map3D[i]);
+		(*hold)->map3D[i++] = temp;
+	}
 	get_next_line(0, &line);
 	(*hold)->y_token = ft_atoi((temp = ft_strchr(line, ' ')));
 	(*hold)->x_token = ft_atoi(ft_strchr(temp + 1, ' '));
@@ -135,7 +167,7 @@ int		check(p_data **hold, int y, int x, char c)
 	while ((*hold)->token3D[j] && (*hold)->map3D[j + y])
 	{
 		i = 0;
-		while ((*hold)->token3D[y][i] && (*hold)->map3D[j + y][4 + (i + x)])
+		while ((*hold)->token3D[y][i] && (*hold)->map3D[j + y][i + x])
 		{
 			if ((*hold)->token3D[y][i] == '*' \
 					&& (*hold)->map3D[j + y][i + x] == c)
@@ -164,15 +196,15 @@ void	play(p_data **hold)
 		c = 'X';
 	while ((*hold)->map3D[y] && y >= 0 && i == 0)
 	{
-		x = (*hold)->x_corner;
-		while ((*hold)->map3D[y][4 + x] && x >= 0 && i == 0)
-		{
+		x =	(*hold)->x_corner;
+		while ((*hold)->map3D[y][x] && x >= 0 && i == 0)
+		{ 
 			if ((i = check(hold, y, x, c)))
-				fprintf(stderr, "%d %d", y, x);
+				printf("%d %d", 1 + y, x);
 			x += (*hold)->x_adder;
+			fprintf(stderr, "%d %d %d %c \n", y, x,i, (*hold)->map3D[y][x]);
 		}
 		y += (*hold)->x_adder;
-	fprintf(stderr, "%d  == %d \n", y, x);
 	}
 }	
 
@@ -182,8 +214,13 @@ int		main(void)
 	int i;
 
 	i = 0;
+
 	if (hold == NULL)
+	{
+	fprintf(stderr, "hi");
 		player(&hold);
+	}
+	fprintf(stderr, "hi");
 	play(&hold);
 //	fprintf(stderr, "%d==%d==%d==%d==%d==\n", hold->p_set, hold->x_my, hold->y_my, hold->x_op, hold->y_op);
 	return (0);
