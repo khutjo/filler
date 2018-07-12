@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:35:48 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:28:33 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+int	ft_toupper(int c)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
-
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
+}

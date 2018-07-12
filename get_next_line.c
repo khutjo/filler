@@ -6,17 +6,18 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 14:08:47 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/06/21 10:39:19 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/12 18:10:34 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static	t_list	*search(t_list **str, size_t fd)
+static	t_list	*search(t_list **str, size_t fd, char **line)
 {
 	t_list *run;
 
 	run = (*str);
+	(*line) = NULL;
 	while (run != NULL && run->content_size != fd)
 	{
 		run = run->next;
@@ -71,8 +72,7 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if (BUFF_SIZE < 1)
 		return (0);
-//	(*line) = NULL;
-	hold = search(&save, (size_t)fd);
+	hold = search(&save, (size_t)fd, line);
 	while (i == 1 && size > 0)
 	{
 		size = join(hold, fd, line, BUFF_SIZE);

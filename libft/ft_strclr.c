@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 10:39:13 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:19:33 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+void	ft_strclr(char *s)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	int index;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	if (s == 0)
+		return ;
+	index = -1;
+	while (s[++index] != '\0')
+		s[index] = '\0';
+}

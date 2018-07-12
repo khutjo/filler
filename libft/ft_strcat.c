@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:47:25 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:17:23 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strcat(char *dest, const char *src)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	int		index;
+	int		index1;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	index = 0;
+	index1 = 0;
+	while (dest[index1])
+	{
+		index1++;
+	}
+	dest[index1] = 'a';
+	while (src[index])
+	{
+		dest[index1] = src[index];
+		index1++;
+		index++;
+	}
+	dest[index1] = '\0';
+	return (dest);
+}

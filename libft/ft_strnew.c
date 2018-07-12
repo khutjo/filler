@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 10:23:50 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/16 15:46:23 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strnew(size_t size)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	char *new;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	new = NULL;
+	if ((new = (char *)malloc(sizeof(char) * (1 + size))))
+		ft_bzero(new, (1 + size));
+	return (new);
+}

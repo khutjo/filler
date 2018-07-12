@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 12:03:12 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:09:58 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	char	*hold;
+	size_t	index;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	hold = 0;
+	index = len;
+	if (!s)
+		return (0);
+	if ((hold = (char *)malloc(sizeof(char) * 1 + index)))
+	{
+		index = 0;
+		while (s[start] != '\0')
+		{
+			hold[index] = s[start];
+			index++;
+			start++;
+		}
+		hold[len] = '\0';
+	}
+	return (hold);
+}

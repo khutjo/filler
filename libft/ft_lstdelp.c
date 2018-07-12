@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_lstdelp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/06/15 08:52:22 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/15 09:46:09 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+int	ft_lstdelp(t_list **alst, int place)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	int		i;
+	t_list	*hold;
+	t_list	*pri;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	i = 0;
+	pri = (*alst);
+	hold = (*alst);
+	while (i < place)
+	{
+		pri = hold;
+		hold = hold->next;
+		i++;
+	}
+	if (i == place)
+	{
+		if (place == 0)
+			*alst = (*alst)->next;
+		else
+			pri->next = hold->next;
+		free(hold);
+		hold = NULL;
+		return (1);
+	}
+	return (0);
+}

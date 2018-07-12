@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:34:42 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:00:00 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strncat(char *dst, const char *src, size_t n)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	size_t	index1;
+	size_t	index;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	index = 0;
+	index1 = 0;
+	while (dst[index] != '\0')
+		index++;
+	while (index1 < n && src[index1] != '\0')
+	{
+		dst[index] = src[index1];
+		index++;
+		index1++;
+	}
+	dst[index] = '\0';
+	return (dst);
+}

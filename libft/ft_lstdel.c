@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/30 17:17:10 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/05/31 16:52:28 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
+#include <stdlib.h>
 
-typedef struct	p_data
+void	ft_lstdel(t_list **alst, void (del)(void *, size_t))
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	t_list *hold;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	hold = (*alst);
+	if (hold != NULL)
+	{
+		*alst = (*alst)->next;
+		ft_lstdel(alst, del);
+		del(hold->content, hold->content_size);
+		free(hold);
+	}
+	alst = NULL;
+}

@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/30 17:41:18 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/13 09:48:32 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include <stdlib.h>
+#include "libft.h"
 
-typedef struct	p_data
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	t_list *read;
+	t_list *hold;
+	t_list *new;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	if (!lst)
+		return (NULL);
+	read = lst->next;
+	hold = NULL;
+	new = NULL;
+	if ((new = (t_list *)malloc(sizeof(t_list))))
+	{
+		hold = ft_lstmap(read, f);
+		new = f(lst);
+		new->next = hold;
+	}
+	return (new);
+}

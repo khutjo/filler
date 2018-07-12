@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:28:22 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:25:44 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strdup(const char *s)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	char	*dup;
+	int		index;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	index = -1;
+	dup = 0;
+	if ((dup = (char *)malloc(sizeof(char) * 1 + ft_strlen(s))))
+	{
+		while (s[++index] != '\0')
+			dup[index] = (char)s[index];
+		dup[index] = '\0';
+	}
+	return (dup);
+}

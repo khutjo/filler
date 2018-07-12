@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/24 14:45:28 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:23:00 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+void	ft_putnbr_fd(int n, int fd)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	long hold;
+	char num;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	hold = n;
+	num = 0;
+	if (hold < 0)
+	{
+		hold *= -1;
+		ft_putchar_fd('-', fd);
+	}
+	num = '0' + (hold % 10);
+	hold /= 10;
+	if (hold > 0)
+		ft_putnbr_fd(hold, fd);
+	ft_putchar_fd(num, fd);
+}

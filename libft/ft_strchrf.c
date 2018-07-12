@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strchrf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/06/15 10:20:31 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/15 10:40:30 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strchrf(char *s, char c, int side)
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	int		i;
+	char	*new;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	i = 0;
+	new = NULL;
+	while (s[i] != '\0' && s[i] != c)
+		i++;
+	if (s[i] == c)
+	{
+		if (side == 'a')
+			new = ft_strdup(&s[++i]);
+		if (side == 'b')
+			new = ft_strdup(&s[--i]);
+		if (side == 'o')
+			new = ft_strdup(&s[i]);
+		return (new);
+	}
+	return (NULL);
+}

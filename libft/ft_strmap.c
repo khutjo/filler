@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.h                                               :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 17:52:03 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 11:07:13 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/16 16:00:59 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RR_H
-# define RR_H
-# include "./libft/libft.h"
-# include "get_next_line.h"
+#include "libft.h"
 
-typedef struct	p_data
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	char		**map3D;
-	char		**token3D;
-	int			x_map;
-	int			y_map;
-	int			x_token;
-	int			y_token;
-	int			y1_offset;
-	int			y2_offset;
-	int			x1_offset;
-	int			x2_offset;
-}				p_data;
+	int		index;
+	char	*hold;
 
-//void	map(p_data **hold);
-//void	stdgg(p_data **hold);
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	index = -1;
+	hold = 0;
+	if ((hold = ft_strnew(ft_strlen(s))))
+	{
+		while (s[++index] != '\0')
+			hold[index] = f(s[index]);
+	}
+	return (hold);
+}

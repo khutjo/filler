@@ -6,7 +6,7 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 16:20:36 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 18:10:49 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/12 17:51:10 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	token(p_data **hold)
 	j = 0;
 	line = NULL;
 	temp = NULL;
-	get_next_line(0, &line);
+	get_next_line(&line);
 	(*hold)->y_token = ft_atoi(ft_strchr(line, ' '));
 	(*hold)->x_token = ft_atoi(ft_strrchr(line, ' '));
 	free(line);
@@ -98,7 +98,7 @@ void	token(p_data **hold)
 	temp[(*hold)->y_token] = NULL;
 	while (i < (*hold)->y_token)
 	{
-		get_next_line(0, &line);
+		get_next_line(&line);
 		temp[i] = line;
 		i++;
 	}
@@ -115,16 +115,16 @@ void	map(p_data **hold)
 	i = 0;
 	temp = NULL;
 	line = NULL;
-	get_next_line(0, &line);
+	get_next_line(&line);
 	(*hold)->y_map = ft_atoi(ft_strchr(line, ' '));
 	(*hold)->x_map = ft_atoi(ft_strrchr(line, ' '));
 	(*hold)->map3D = (char **)malloc(sizeof(char **) * (1 + (*hold)->y_map));
 	free(line);
-	get_next_line(0, &line);
+	get_next_line(&line);
 	free(line);
 	while (i < (*hold)->y_map)
 	{
-		get_next_line(0, &line);
+		get_next_line(&line);
 		(*hold)->map3D[i] = ft_strsub(line, 4, (*hold)->x_map);
 		free(line);
 		i++;
@@ -139,7 +139,7 @@ void	set(char *c)
 
 	temp = NULL;
 	line = NULL;
-	get_next_line(0, &line);
+	get_next_line(&line);
 	temp = ft_strchr(line, 'p') + 1;
 	if (*temp == '1')
 		*c = 'O';
@@ -197,36 +197,34 @@ int		play(p_data **hold, int *x, int *y, char c)
 		i++;
 	}
 	if ((*hold)->map3D[i])
+	{
+		free(hold);
 		return (1);
+	}
 	return (0);
+}
+
+int		s_play(p_data **hold, int *x, int *y, char c)
+{
+	(*hold) = (p_data *)malloc(sizeof(p_data));
+	map(hold);
+	token(hold);
+	return (play(hold, x, y, c));
 }
 
 int		main(void)
 {
 	p_data	*hold;
 	char	c;
-	int		i;
 	int		x;
 	int		y;
 
 	x = 0;
 	y = 0;
-	i = 1;
 	c = '\0';
 	hold = NULL;
 	set(&c);
-	while (i)
-	{	hold = (p_data *)malloc(sizeof(p_data));
-	fprintf(stderr, "hi = 1 <> %c ", c);
-	map(&hold);
-	fprintf(stderr, "hi = 2 <> %c ", c);
-	token(&hold);
-	fprintf(stderr, "hi = 3 <> %c ", c);
-	i = play(&hold, &x, &y, c);
-	fprintf(stderr, "hi = 4 <> %c ", c);
-	free(hold);
-	fprintf(stderr, "hi = 5 <> %c ", c);
-	printf("%d %d", y, x);
-	fprintf(stderr, "hi = 6 <> %c \n", c);}
+	while (s_play(&hold, &x, &y, c))
+		printf("%d %d", y, x);
 	return (0);
 }
