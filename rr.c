@@ -6,173 +6,48 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 16:20:36 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/12 18:10:49 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/13 16:25:03 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rr.h"
 #include <stdio.h>
 
-void	len(p_data **hold, char *temp)
-{
-	int	j;
-
-	j = (*hold)->x_token;
-	while (temp[j] != '*' && j >= 0)
-		j--;
-	if (j == -1 && (*hold)->x2_offset == 0)
-		(*hold)->y2_offset++;
-	if (j >= (*hold)->x2_offset)
-		(*hold)->x2_offset = ++j - (*hold)->x1_offset;
-}
-
-void	crop_1(p_data **hold, char **temp)
-{
-	int i;
-	int j;
-	int u;
-	int	h;
-
-	i = 0;
-	u = 0;
-	h = 0;
-	j = (*hold)->y1_offset;
-	(*hold)->y2_offset = 0;
-	(*hold)->x2_offset = 0;
-	while (temp[i])
-		len(hold, temp[i++]);
-	(*hold)->token3D = (char **)malloc(sizeof(char **) * (1 + j));
-	(*hold)->token3D[j] = NULL;
-	i = (*hold)->x1_offset;
-	j = (*hold)->x2_offset;
-	u = (*hold)->y2_offset;
-	while (h < (*hold)->y1_offset)
-		(*hold)->token3D[h++] = ft_strsub(temp[u++], i, j);
-}
-
-void	crop(p_data **hold, char **temp)
-{
-	int		i;
-	int		j;
-	int		exit;
-
-	j = -1;
-	exit = 0;
-	(*hold)->y1_offset = 0;
-	(*hold)->x1_offset = (*hold)->x_token;
-	while (temp[++j])
-	{
-		i = 0;
-		exit = 0;
-		while (temp[j][i] != '\0')
-		{
-			if (!exit && temp[j][i] == '*')
-			{
-				exit = 1;
-				(*hold)->y1_offset = (*hold)->y1_offset + 1;
-				if (i < (*hold)->x1_offset)
-					(*hold)->x1_offset = i;
-			}
-			i++;
-		}
-	}
-	crop_1(hold, temp);
-}
-
-void	token(p_data **hold)
-{
-	int		i;
-	int		j;
-	char	*line;
-	char	**temp;
-
-	i = 0;
-	j = 0;
-	line = NULL;
-	temp = NULL;
-	get_next_line(0, &line);
-	(*hold)->y_token = ft_atoi(ft_strchr(line, ' '));
-	(*hold)->x_token = ft_atoi(ft_strrchr(line, ' '));
-	free(line);
-	temp = (char **)malloc(sizeof(char **) * (1 + (*hold)->y_token));
-	temp[(*hold)->y_token] = NULL;
-	while (i < (*hold)->y_token)
-	{
-		get_next_line(0, &line);
-		temp[i] = line;
-		i++;
-	}
-	crop(hold, temp);
-	free(temp);
-}
-
-void	map(p_data **hold)
-{
-	char	*line;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	temp = NULL;
-	line = NULL;
-	get_next_line(0, &line);
-	(*hold)->y_map = ft_atoi(ft_strchr(line, ' '));
-	(*hold)->x_map = ft_atoi(ft_strrchr(line, ' '));
-	(*hold)->map3D = (char **)malloc(sizeof(char **) * (1 + (*hold)->y_map));
-	free(line);
-	get_next_line(0, &line);
-	free(line);
-	while (i < (*hold)->y_map)
-	{
-		get_next_line(0, &line);
-		(*hold)->map3D[i] = ft_strsub(line, 4, (*hold)->x_map);
-		free(line);
-		i++;
-	}
-	(*hold)->map3D[i] = NULL;
-}
-
-void	set(char *c)
-{
-	char	*line;
-	char	*temp;
-
-	temp = NULL;
-	line = NULL;
-	get_next_line(0, &line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
-		*c = 'O';
-	else
-		*c = 'X';
-}
-
-int		check(p_data **hold, int x, int y, char c)
+int		check(t_list **hold, int x, int y, char c, char o)
 {
 	int		i;
 	int		j;
 	int		point;
+	int		stop;
 
 	i = 0;
 	j = 0;
+	stop = 0;
 	point = 0;
-	while ((*hold)->map3D[i + y] && (*hold)->token3D[i])
+	while ((*hold)->map3D[i + y] && (*hold)->token3D[i] && !stop)
 	{
 		j = 0;
-		while ((*hold)->token3D[i][j] && (*hold)->map3D[i + y][j + x])
+		while ((*hold)->token3D[i][j] && (*hold)->map3D[i + y][j + x] && !stop)
 		{
-			if ((*hold)->map3D[i + y][j + x] == c && (*hold)->token3D[i][j] == '*')
+			if ((*hold)->map3D[i + y][j + x] == c \
+					&& (*hold)->token3D[i][j] == '*')
 				point++;
+			if ((*hold)->map3D[i + y][j + x] == o \
+					&& (*hold)->token3D[i][j] == '*')
+				stop = 1;
 			j++;
 		}
+		if ((*hold)->map3D[i + y][j + x] == '\0' &&\
+				(*hold)->token3D[i][j] != '\0')
+			stop = 1;
 		i++;
 	}
-	if (point == 1)
+	if (point == 1 && !stop)
 		return (1);
 	return (0);
 }
 
-int		play(p_data **hold, int *x, int *y, char c)
+int		play(t_list **hold, int *x, int *y, char c, char o)
 {
 	int i;
 	int j;
@@ -186,7 +61,7 @@ int		play(p_data **hold, int *x, int *y, char c)
 		j = 0;
 		while ((*hold)->map3D[i][j] && !point)
 		{
-			point = check(hold, j, i, c);
+			point = check(hold, j, i, c, o);
 			if (point == 1)
 			{
 				*x = j - (*hold)->x1_offset;
@@ -203,8 +78,9 @@ int		play(p_data **hold, int *x, int *y, char c)
 
 int		main(void)
 {
-	p_data	*hold;
+	t_list	*hold;
 	char	c;
+	char	o;
 	int		i;
 	int		x;
 	int		y;
@@ -212,21 +88,22 @@ int		main(void)
 	x = 0;
 	y = 0;
 	i = 1;
+	o = '\0';
 	c = '\0';
 	hold = NULL;
-	set(&c);
+	if (c == '\0')
+		set(&c, &o);
 	while (i)
-	{	hold = (p_data *)malloc(sizeof(p_data));
-	fprintf(stderr, "hi = 1 <> %c ", c);
+	{
+	hold = (t_list *)malloc(sizeof(t_list));
 	map(&hold);
-	fprintf(stderr, "hi = 2 <> %c ", c);
 	token(&hold);
-	fprintf(stderr, "hi = 3 <> %c ", c);
-	i = play(&hold, &x, &y, c);
-	fprintf(stderr, "hi = 4 <> %c ", c);
+	i = play(&hold, &x, &y, c, o);
 	free(hold);
-	fprintf(stderr, "hi = 5 <> %c ", c);
-	printf("%d %d", y, x);
-	fprintf(stderr, "hi = 6 <> %c \n", c);}
+	ft_putstr(ft_itoa(y));
+	ft_putstr(" ");
+	ft_putstr(ft_itoa(x));
+	ft_putstr("\n");
+	}
 	return (0);
 }

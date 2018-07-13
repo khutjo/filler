@@ -6,7 +6,7 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 08:57:21 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/06/15 11:33:36 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/13 16:01:03 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,22 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "get_next_line.h"
 
 typedef	struct	s_list
 {
 	void			*content;
 	size_t			content_size;
+	char		**map3D;
+	char		**token3D;
+	int			x_map;
+	int			y_map;
+	int			x_token;
+	int			y_token;
+	int			y1_offset;
+	int			y2_offset;
+	int			x1_offset;
+	int			x2_offset;
 	struct s_list	*next;
 }				t_list;
 
@@ -87,4 +98,8 @@ void			ft_lstputstr(t_list *str);
 void			ft_lstputlst(t_list **head);
 char			*ft_strjoinf(char *s1, char *s2);
 char			*ft_strchrf(char *s, char c, int side);
+
+void	map(t_list **hold);
+void	set(char *c, char *o);
+void	token(t_list **hold);
 #endif

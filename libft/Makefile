@@ -6,7 +6,7 @@
 #    By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/30 13:45:26 by kmaputla          #+#    #+#              #
-#    Updated: 2018/06/15 11:35:00 by kmaputla         ###   ########.fr        #
+#    Updated: 2018/07/13 09:13:05 by kmaputla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,11 @@ SRC =	ft_atoi.c\
 		ft_lstputstr.c\
 		ft_lstdelp.c\
 		ft_strjoinf.c\
-		ft_strchrf.c
+		ft_strchrf.c\
+		p_set.c\
+		map.c\
+		token.c\
+		get_next_line.c
 
  OBJ =	ft_atoi.o\
  		ft_bzero.o\
@@ -138,7 +142,11 @@ SRC =	ft_atoi.c\
 		ft_lstputstr.o\
 		ft_lstdelp.o\
 		ft_strjoinf.o\
-		ft_strchrf.o
+		ft_strchrf.o\
+		p_set.o\
+		map.o\
+		token.o\
+		get_next_line.o
 
 all:$(NAME)
 
