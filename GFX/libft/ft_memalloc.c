@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 09:48:16 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 11:31:31 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	*ft_memalloc(size_t size)
 {
-	char	*line;
-	char	*temp;
+	char	*fresh;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
-	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
-	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	fresh = NULL;
+	if ((fresh = (void *)malloc(sizeof(void) * size)))
+		ft_bzero(fresh, size);
+	return (fresh);
 }

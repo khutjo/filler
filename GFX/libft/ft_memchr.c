@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:45:19 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 11:38:07 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*line;
-	char	*temp;
+	unsigned char chold;
+	unsigned char *shold;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	shold = (unsigned char *)s;
+	chold = (unsigned char)c;
+	while (n--)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		if (*shold == chold)
+			return (shold);
+		shold++;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (NULL);
 }

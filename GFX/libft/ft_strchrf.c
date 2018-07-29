@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strchrf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/06/15 10:20:31 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/15 10:40:30 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strchrf(char *s, char c, int side)
 {
-	char	*line;
-	char	*temp;
+	int		i;
+	char	*new;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	i = 0;
+	new = NULL;
+	while (s[i] != '\0' && s[i] != c)
+		i++;
+	if (s[i] == c)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		if (side == 'a')
+			new = ft_strdup(&s[++i]);
+		if (side == 'b')
+			new = ft_strdup(&s[--i]);
+		if (side == 'o')
+			new = ft_strdup(&s[i]);
+		return (new);
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (NULL);
 }

@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/30 17:36:47 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/05/31 09:20:49 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	char	*line;
-	char	*temp;
-
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	while (lst != NULL)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		f(lst);
+		lst = lst->next;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
 }

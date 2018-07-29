@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/30 17:41:18 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/13 09:48:32 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int	set(game **hold)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	char	*line;
-	char	*temp;
+	t_list *read;
+	t_list *hold;
+	t_list *new;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	if (!lst)
+		return (NULL);
+	read = lst->next;
+	hold = NULL;
+	new = NULL;
+	if ((new = (t_list *)malloc(sizeof(t_list))))
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		hold = ft_lstmap(read, f);
+		new = f(lst);
+		new->next = hold;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (new);
 }

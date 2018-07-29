@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:46:19 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:26:26 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*line;
-	char	*temp;
+	unsigned char	*hold;
+	unsigned char	c_c;
+	size_t			index;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
-	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
-	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	c_c = (unsigned char)c;
+	hold = (unsigned char *)b;
+	index = -1;
+	while (++index < len)
+		hold[index] = c_c;
+	return (b);
 }

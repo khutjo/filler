@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:45:31 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 11:39:16 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+int			ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*line;
-	char	*temp;
+	size_t				index;
+	unsigned const char	*c_s1;
+	unsigned const char	*c_s2;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = 0;
+	c_s1 = (unsigned const char *)s1;
+	c_s2 = (unsigned const char *)s2;
+	while (index < n)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		if (c_s1[index] != c_s2[index])
+			return (c_s1[index] - c_s2[index]);
+		index++;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (0);
 }

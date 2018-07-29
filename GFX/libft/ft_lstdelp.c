@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_lstdelp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/06/15 08:52:22 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/15 09:46:09 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+int	ft_lstdelp(t_list **alst, int place)
 {
-	char	*line;
-	char	*temp;
+	int		i;
+	t_list	*hold;
+	t_list	*pri;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	i = 0;
+	pri = (*alst);
+	hold = (*alst);
+	while (i < place)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		pri = hold;
+		hold = hold->next;
+		i++;
 	}
-	else
+	if (i == place)
 	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
+		if (place == 0)
+			*alst = (*alst)->next;
+		else
+			pri->next = hold->next;
+		free(hold);
+		hold = NULL;
+		return (1);
 	}
-	return (1);
+	return (0);
 }

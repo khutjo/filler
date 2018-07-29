@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:34:58 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:00:51 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*line;
-	char	*temp;
+	unsigned char	*c_s1;
+	unsigned char	*c_s2;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	c_s1 = (unsigned char *)s1;
+	c_s2 = (unsigned char *)s2;
+	if (!n)
+		return (0);
+	while (--n && *c_s1 == *c_s2 && *c_s1 && *c_s2)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		c_s1++;
+		c_s2++;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (*c_s1 - *c_s2);
 }

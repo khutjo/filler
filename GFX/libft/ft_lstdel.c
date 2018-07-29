@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/30 17:17:10 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/05/31 16:52:28 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int	set(game **hold)
+void	ft_lstdel(t_list **alst, void (del)(void *, size_t))
 {
-	char	*line;
-	char	*temp;
+	t_list *hold;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	hold = (*alst);
+	if (hold != NULL)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		*alst = (*alst)->next;
+		ft_lstdel(alst, del);
+		del(hold->content, hold->content_size);
+		free(hold);
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	alst = NULL;
 }

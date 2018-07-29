@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   GFX.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/07/18 16:43:25 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/07/18 17:02:58 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "GFX.h"
 
-int	set(game **hold)
+int	choose(int key)
 {
-	char	*line;
-	char	*temp;
+	if (keycode == 53)
+	   exit(0);
+	return (0);
+}	
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
-	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
-	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+int	main(void)
+{
+	node	*hold;
+
+	hold = (node *)malloc(sizeof(node));
+	(*hold)->mlx = mlx_init(mlx);
+	(*hold)->fd = open("plays.txt", O_RDONLY);
+	dimen(&hold);
+	(*hold)->win = mlx_new_window(mlx, (*hold)->x, (*hold)->y, "FILLER GFX");
+	mlx_key_hook(win, &choose, 0);
+	mlx_loop(mlx);
 }

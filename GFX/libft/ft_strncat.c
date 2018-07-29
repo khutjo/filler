@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:34:42 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:00:00 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strncat(char *dst, const char *src, size_t n)
 {
-	char	*line;
-	char	*temp;
+	size_t	index1;
+	size_t	index;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = 0;
+	index1 = 0;
+	while (dst[index] != '\0')
+		index++;
+	while (index1 < n && src[index1] != '\0')
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		dst[index] = src[index1];
+		index++;
+		index1++;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	dst[index] = '\0';
+	return (dst);
 }

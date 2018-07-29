@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:47:25 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:17:23 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strcat(char *dest, const char *src)
 {
-	char	*line;
-	char	*temp;
+	int		index;
+	int		index1;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = 0;
+	index1 = 0;
+	while (dest[index1])
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		index1++;
 	}
-	else
+	dest[index1] = 'a';
+	while (src[index])
 	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
+		dest[index1] = src[index];
+		index1++;
+		index++;
 	}
-	return (1);
+	dest[index1] = '\0';
+	return (dest);
 }

@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:46:05 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:09:40 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*line;
-	char	*temp;
+	size_t			index;
+	unsigned char	*c_src;
+	unsigned char	*c_dst;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = -1;
+	c_dst = (unsigned char *)dst;
+	c_src = (unsigned char *)src;
+	if (&c_dst[0] > &c_src[0])
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		while (len > 0)
+		{
+			len--;
+			c_dst[len] = c_src[len];
+		}
 	}
 	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+		while (++index < len)
+			c_dst[index] = c_src[index];
+	return (dst);
 }

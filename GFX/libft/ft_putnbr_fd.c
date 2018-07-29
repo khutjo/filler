@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/24 14:45:28 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:23:00 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*line;
-	char	*temp;
+	long hold;
+	char num;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	hold = n;
+	num = 0;
+	if (hold < 0)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		hold *= -1;
+		ft_putchar_fd('-', fd);
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	num = '0' + (hold % 10);
+	hold /= 10;
+	if (hold > 0)
+		ft_putnbr_fd(hold, fd);
+	ft_putchar_fd(num, fd);
 }

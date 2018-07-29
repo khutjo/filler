@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 12:03:12 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 17:09:58 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*line;
-	char	*temp;
+	char	*hold;
+	size_t	index;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	hold = 0;
+	index = len;
+	if (!s)
+		return (0);
+	if ((hold = (char *)malloc(sizeof(char) * 1 + index)))
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		index = 0;
+		while (s[start] != '\0')
+		{
+			hold[index] = s[start];
+			index++;
+			start++;
+		}
+		hold[len] = '\0';
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (hold);
 }

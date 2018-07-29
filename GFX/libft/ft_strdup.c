@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 12:28:22 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 16:25:44 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strdup(const char *s)
 {
-	char	*line;
-	char	*temp;
+	char	*dup;
+	int		index;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = -1;
+	dup = 0;
+	if ((dup = (char *)malloc(sizeof(char) * 1 + ft_strlen(s))))
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		while (s[++index] != '\0')
+			dup[index] = (char)s[index];
+		dup[index] = '\0';
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (dup);
 }

@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/21 14:08:39 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/16 16:48:15 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*line;
-	char	*temp;
+	int		index;
+	int		index2;
+	char	*hold;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	hold = NULL;
+	if (!s1 || !s2)
+		return (hold);
+	index = ft_strlen(s1);
+	index2 = ft_strlen(s2);
+	if ((hold = (char *)malloc(sizeof(char) * 1 + (index + index2))))
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		hold = ft_strcpy(hold, s1);
+		hold = ft_strcat(hold, s2);
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (hold);
 }

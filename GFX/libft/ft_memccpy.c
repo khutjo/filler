@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_set.c                                            :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Created: 2018/05/15 08:45:08 by kmaputla          #+#    #+#             */
+/*   Updated: 2018/06/14 11:32:50 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int	set(game **hold)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t len)
 {
-	char	*line;
-	char	*temp;
+	size_t			index;
+	unsigned char	*c_dst;
+	unsigned char	*c_src;
+	unsigned char	c_c;
 
-	temp = NULL;
-	line = NULL;
-	get_next_line(&line);
-	temp = ft_strchr(line, 'p') + 1;
-	if (*temp == '1')
+	index = 0;
+	c_c = (unsigned char)c;
+	c_src = (unsigned char *)src;
+	c_dst = (unsigned char *)dst;
+	while (index < len)
 	{
-		(*hold)->c = 'O';
-		(*hold)->o = 'X';
+		c_dst[index] = c_src[index];
+		if (c_src[index] == c_c)
+			return (&c_dst[++index]);
+		index++;
 	}
-	else
-	{
-		(*hold)->c = 'X';
-		(*hold)->o = 'O';
-	}
-	return (1);
+	return (0);
 }
