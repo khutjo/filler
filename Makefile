@@ -6,7 +6,7 @@
 #    By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/30 13:45:26 by kmaputla          #+#    #+#              #
-#    Updated: 2018/07/29 17:43:06 by kmaputla         ###   ########.fr        #
+#    Updated: 2018/07/29 17:51:04 by kmaputla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,10 @@ $(NAME):$(COM)
  
 COM:
 	make f -C libft/
-fclean:clean
+fclean:
 	rm -f $(NAME)
 
-f:all clean
+f:all fclean
 
 re:fclean all
 
