@@ -6,13 +6,13 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 09:07:15 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:28 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/30 15:39:56 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int	set(game **hold)
+int	set(t_lst **hold)
 {
 	char	*line;
 	char	*temp;
@@ -31,5 +31,8 @@ int	set(game **hold)
 		(*hold)->c = 'X';
 		(*hold)->o = 'O';
 	}
+	(*hold)->c_my = -1;
+	(*hold)->o_my = -1;
+	(*hold)->side = -1;
 	return (1);
 }

@@ -6,73 +6,20 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 14:08:13 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:40:12 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/30 16:39:34 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static int	putt(game **hold, int y, int x, char c)
-{
-	int i;
-	int j;
-	int k;
-
-	i = -1;
-	k = 1;
-	if (y == 0)
-		i = 0;
-	while (i < 2 && (*hold)->map3D[i + y])
-	{
-		j = -1;
-		if (x == 0)
-			j = 0;
-		while (j < 2 && (*hold)->map3D[i + y][j + x])
-		{
-			if ((*hold)->map3D[i + y][j + x] == '.')
-			{
-				(*hold)->map3D[i + y][j + x] = c;
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (k);
-}
-
-
-static void	heatmap(game ** hold, char s)
-{
-	int i;
-	int j;
-	int k;
-
-	i = -1;
-	k = 0;
-	while ((*hold)->map3D[++i])
-	{
-		j = -1;
-		while ((*hold)->map3D[i][++j])
-		{
-			if ((*hold)->map3D[i][j] == (*hold)->o || (*hold)->map3D[i][j] == s)
-			{
-				k = putt(hold, i, j, 1 + s);
-			}
-		}
-	}
-	if (k && s <= 'x')
-		heatmap(hold, ++s);
-}
-
-static int	justput(game **hold)
+static	int		justput(t_lst **hold)
 {
 	int i;
 	int j;
 	int exit;
 
 	exit = 0;
-	i  = (*hold)->y_map;
+	i = (*hold)->y_map;
 	while (--i > -1 && !exit)
 	{
 		j = (*hold)->x_map;
@@ -89,7 +36,7 @@ static int	justput(game **hold)
 	return (exit);
 }
 
-static int	hotspot(game **hold, int x, int y, char c)
+static	int		hotspot(t_lst **hold, int x, int y, char c)
 {
 	int i;
 	int j;
@@ -102,9 +49,9 @@ static int	hotspot(game **hold, int x, int y, char c)
 	{
 		xx = x;
 		j = (*hold)->x1_offset;
-		while ((*hold)->token3D[i][j])
+		while ((*hold)->token[i][j])
 		{
-			if ((*hold)->token3D[i][j] == '*' && (*hold)->map3D[y][xx] == c)
+			if ((*hold)->token[i][j] == '*' && (*hold)->map[y][xx] == c)
 				k++;
 			xx++;
 			j++;
@@ -115,7 +62,7 @@ static int	hotspot(game **hold, int x, int y, char c)
 	return (k);
 }
 
-static int	heatseeker(game **hold, char c)
+static	int		heatseeker(t_lst **hold, char c)
 {
 	int i;
 	int j;
@@ -125,12 +72,10 @@ static int	heatseeker(game **hold, char c)
 	k = 0;
 	exit = 0;
 	i = (*hold)->y_map;
-	while (--i > -1 && !exit)
-	{
-		j = (*hold)->x_map;
+	while (--i > -1 && !exit && (j = (*hold)->x_map))
 		while (--j > -1 && !exit)
 		{
-			if ((*hold)->map3D[i][j] == c)
+			if ((*hold)->map[i][j] == c)
 				k++;
 			if (valid(hold, j, i) && hotspot(hold, j, i, c))
 			{
@@ -139,13 +84,12 @@ static int	heatseeker(game **hold, char c)
 				exit = 1;
 			}
 		}
-	}
 	if (!exit && k)
 		exit = heatseeker(hold, ++c);
 	return (exit);
 }
 
-int	play_3(game **hold)
+int				play_3(t_lst **hold)
 {
 	int exit;
 

@@ -6,32 +6,31 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 16:20:36 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:40 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/30 16:44:31 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	clean(game **hold)
+void	clean(t_lst **hold)
 {
 	int i;
 
 	i = 0;
-	while ((*hold)->map3D[i])
+	while ((*hold)->map[i])
 		i++;
 	while (--i >= 0)
-		free((*hold)->map3D[i]);
-	free((*hold)->map3D);
+		free((*hold)->map[i]);
+	free((*hold)->map);
 	i = 0;
-	while ((*hold)->token3D[i])
+	while ((*hold)->token[i])
 		i--;
 	while (--i >= 0)
-		free((*hold)->token3D[i]);
-	free((*hold)->token3D);
+		free((*hold)->token[i]);
+	free((*hold)->token);
 }
 
-
-void	init(game **hold)
+void	init(t_lst **hold)
 {
 	(*hold)->x = 0;
 	(*hold)->y = 0;
@@ -47,20 +46,15 @@ void	init(game **hold)
 
 int		main(void)
 {
-	game	*hold;
+	t_lst	*hold;
 	int		i;
-	int		k;
 
 	i = 1;
-	hold = (game *)malloc(sizeof(game));
+	hold = (t_lst *)malloc(sizeof(t_lst));
 	set(&hold);
-	hold->c_my = -1;
-	hold->o_my = -1;
-	hold->side = -1;
 	while (i)
 	{
 		i = 0;
-		k = -1;
 		init(&hold);
 		map(&hold);
 		token(&hold);

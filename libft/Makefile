@@ -6,7 +6,7 @@
 #    By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/30 13:45:26 by kmaputla          #+#    #+#              #
-#    Updated: 2018/07/29 17:07:02 by kmaputla         ###   ########.fr        #
+#    Updated: 2018/07/30 12:15:38 by kmaputla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,6 +149,8 @@ $(NAME):$(OBJ)
 
 $(OBJ):$(SRC)
 	gcc -c -Wall -Werror -Wextra -g3 $(SRC)
+
+.PHONY : fclean  clean f re norm
 
 fclean:clean
 	rm -f $(NAME)

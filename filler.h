@@ -6,7 +6,7 @@
 /*   By: kmaputla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 09:03:42 by kmaputla          #+#    #+#             */
-/*   Updated: 2018/07/29 17:39:00 by kmaputla         ###   ########.fr       */
+/*   Updated: 2018/07/30 16:52:56 by kmaputla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define FILLER_H
 # include "./libft/libft.h"
 
-typedef	struct	game
+typedef	struct	s_lst
 {
-	char		**map3D;
-	char		**token3D;
+	char		**map;
+	char		**token;
 	char		c;
 	char		o;
 	int			x;
@@ -34,13 +34,13 @@ typedef	struct	game
 	int			y2_offset;
 	int			x1_offset;
 	int			x2_offset;
-}				game;
+}				t_lst;
 
-void			map(game **hold);
-int				set(game **hold);
-void			token(game **hold);
-int				play3(game **hold);
-int				play_3(game **hold);
-int				valid(game **hold, int x, int y);
-
+void			map(t_lst **hold);
+int				set(t_lst **hold);
+void			token(t_lst **hold);
+int				play3(t_lst **hold);
+int				play_3(t_lst **hold);
+int				valid(t_lst **hold, int x, int y);
+void			heatmap(t_lst **hold, char s);
 #endif
